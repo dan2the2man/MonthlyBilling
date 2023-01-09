@@ -83,7 +83,7 @@ if mcheck == 1:
         # Write each company billing to a separate excel spreadsheet
         tempdf, tempfile = writeToCsv(d, lng, i)
         CSV = convert_df(tempdf, tempfile)
-        st.download_button(label='Download Current Result',
+        st.download_button(label=tempfile[:-4],
                                     data=CSV,
                                     file_name= tempfile)
         
