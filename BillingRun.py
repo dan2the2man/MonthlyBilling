@@ -83,22 +83,25 @@ if mcheck == 1:
         # Write each company billing to a separate excel spreadsheet
         tempdf, tempfile = writeToCsv(d, lng, i)
         CSV = convert_df(tempdf, tempfile)
-        zipObj.write(CSV, tempfile, compress_type = zipfile.ZIP_DEFLATED)
+        st.download_button(label='Download Current Result',
+                                    data=CSV,
+                                    file_name= string)
+        
         #zipObj.write("MonthlyBillBreakdown.zip", CSV)
         
 
     # close the Zip File
-    zipObj.close()
+    # zipObj.close()
 
-    ZipfileDotZip = "MonthlyBillBreakdown.zip"
+    # ZipfileDotZip = "MonthlyBillBreakdown.zip"
 
-    with open(ZipfileDotZip, "rb") as f:
-        bytes = f.read()
-        b64 = base64.b64encode(bytes).decode()
-        href = f"<a href=\"data:file/zip;base64,{b64}\" download='{ZipfileDotZip}.zip'>\
-            Click last model weights\
-            </a>"
-    st.sidebar.markdown(href, unsafe_allow_html=True)
+    # with open(ZipfileDotZip, "rb") as f:
+    #     bytes = f.read()
+    #     b64 = base64.b64encode(bytes).decode()
+    #     href = f"<a href=\"data:file/zip;base64,{b64}\" download='{ZipfileDotZip}.zip'>\
+    #         Click last model weights\
+    #         </a>"
+    # st.sidebar.markdown(href, unsafe_allow_html=True)
 
 
 
