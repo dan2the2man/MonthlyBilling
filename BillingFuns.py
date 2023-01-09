@@ -11,7 +11,7 @@ import os
 import math
 import streamlit as st
 import base64
-from zipfile import ZipFile
+import zipfile
 import io
 
 
