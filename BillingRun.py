@@ -28,7 +28,8 @@ month = ''
 yearcheck = 0
 moncheck = 'nono'
 while yearcheck == 0:
-    year = input("Please type the year we are billing: ")
+    year = st.text_input('Year', '2023')
+    #year = input("Please type the year we are billing: ")
     try:
         year = int(year)
         yearcheck = getYear(year)
@@ -37,7 +38,8 @@ while yearcheck == 0:
 
         
 while moncheck == 'nono':
-    month = input("Please type the month we are billing: ")
+    month = st.text_input('Month (The one it currently is)', 'February')
+    #month = input("Please type the month we are billing: ")
     moncheck = getMonth(month)
     
 month = moncheck
