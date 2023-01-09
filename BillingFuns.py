@@ -104,7 +104,7 @@ def writeToCsv(d, lng, i):
 @st.cache
 def convert_df(df, f):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv(f).encode('utf-8')
+    return df.to_csv().encode(f, 'utf-8')
 
     
 def getYear(y):
