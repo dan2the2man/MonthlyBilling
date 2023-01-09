@@ -72,11 +72,11 @@ if mcheck == 1:
     ## Deals with termination of GO7 Devices and alters the billing days accordingly
     d = setQuantity(d, month, year)
 
-zipObj = ZipFile("MonthlyBillBreakdown.zip", "w")
+    zipObj = ZipFile("MonthlyBillBreakdown.zip", "w")
 
 
 
-if mcheck == 1:
+
     for i in range(lng):
     
         # Write each company billing to a separate excel spreadsheet
@@ -85,18 +85,18 @@ if mcheck == 1:
         zipObj.write("MonthlyBillBreakdown.zip", CSV)
         
 
-# close the Zip File
-zipObj.close()
+    # close the Zip File
+    zipObj.close()
 
-ZipfileDotZip = "MonthlyBillBreakdown.zip"
+    ZipfileDotZip = "MonthlyBillBreakdown.zip"
 
-with open(ZipfileDotZip, "rb") as f:
-    bytes = f.read()
-    b64 = base64.b64encode(bytes).decode()
-    href = f"<a href=\"data:file/zip;base64,{b64}\" download='{ZipfileDotZip}.zip'>\
-        Click last model weights\
-    </a>"
-st.sidebar.markdown(href, unsafe_allow_html=True)
+    with open(ZipfileDotZip, "rb") as f:
+        bytes = f.read()
+        b64 = base64.b64encode(bytes).decode()
+        href = f"<a href=\"data:file/zip;base64,{b64}\" download='{ZipfileDotZip}.zip'>\
+            Click last model weights\
+            </a>"
+    st.sidebar.markdown(href, unsafe_allow_html=True)
 
 
 
