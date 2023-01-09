@@ -73,7 +73,7 @@ if mcheck == 1:
     d = setQuantity(d, month, year)
 
     
-    zipObj = zipfile.ZipFile("MonthlyBillBreakdown.zip", "w")
+    zipObj = ZipFile("MonthlyBillBreakdown.zip", "w")
 
 
 
