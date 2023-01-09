@@ -38,7 +38,7 @@ while yearcheck == 0:
 
         
 while moncheck == 'nono':
-    month = st.text_input('Month (The one it currently is)', 'February')
+    month = st.text_input('Month (The one it currently is - this will affect bill days)', 'February')
     #month = input("Please type the month we are billing: ")
     moncheck = getMonth(month)
     
