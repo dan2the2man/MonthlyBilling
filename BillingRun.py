@@ -84,7 +84,7 @@ if mcheck == 1:
         tempdf, tempfile = writeToCsv(d, lng, i)
         x = sum(tempdf['Cost'])
         sx = str(round(x, 2))
-        dbname = tempfile[:4]
+        dbname = tempfile[:-4]
         
         st.write(dbname + " Monthly total: " + sx)
         CSV = convert_df(tempdf, tempfile)
