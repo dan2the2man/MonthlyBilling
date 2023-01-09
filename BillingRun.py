@@ -69,8 +69,8 @@ if mcheck == 1:
         d[i] = tdf
 
 
-## Deals with termination of GO7 Devices and alters the billing days accordingly
-d = setQuantity(d, month, year)
+    ## Deals with termination of GO7 Devices and alters the billing days accordingly
+    d = setQuantity(d, month, year)
 
 zipObj = ZipFile("MonthlyBillBreakdown.zip", "w")
 
