@@ -72,17 +72,19 @@ if mcheck == 1:
     ## Deals with termination of GO7 Devices and alters the billing days accordingly
     d = setQuantity(d, month, year)
 
-    zipObj = ZipFile("MonthlyBillBreakdown.zip", "w")
+    
+    zipObj = zipfile.ZipFile("MonthlyBillBreakdown.zip", "w")
 
 
 
 
     for i in range(lng):
-    
+        
         # Write each company billing to a separate excel spreadsheet
         tempdf, tempfile = writeToCsv(d, lng, i)
         CSV = convert_df(tempdf, tempfile)
-        zipObj.write("MonthlyBillBreakdown.zip", CSV)
+        zipObj.write(CSV, tempfile, compress_type = zipfile.ZIP_DEFLATED)
+        #zipObj.write("MonthlyBillBreakdown.zip", CSV)
         
 
     # close the Zip File
