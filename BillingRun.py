@@ -85,7 +85,7 @@ if mcheck == 1:
         CSV = convert_df(tempdf, tempfile)
         st.download_button(label='Download Current Result',
                                     data=CSV,
-                                    file_name= string)
+                                    file_name= tempfile)
         
         #zipObj.write("MonthlyBillBreakdown.zip", CSV)
         
