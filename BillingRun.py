@@ -48,25 +48,25 @@ year = yearcheck
 # ---------------------------------------------------------------------------
 
 
-
-# Set our unit prices
-monthlydf = editProductPrice(monthlydf)
-
-
-## Edit cost
-monthlydf = setCost(monthlydf)
-
-
-## Get the number of companies to bill this month
-lng = len(monthlydf['Database'].unique())
-
-
-## Create Database for each company (These will turn into excel spreadsheets)
-d = {}
-for i in range(lng):
-    tdf = monthlydf.loc[monthlydf['id'] == i]
-    tdf = tdf.reset_index(drop=True)
-    d[i] = tdf
+if mcheck == 1:
+    # Set our unit prices
+    monthlydf = editProductPrice(monthlydf)
+    
+    
+    ## Edit cost
+    monthlydf = setCost(monthlydf)
+    
+    
+    ## Get the number of companies to bill this month
+    lng = len(monthlydf['Database'].unique())
+    
+    
+    ## Create Database for each company (These will turn into excel spreadsheets)
+    d = {}
+    for i in range(lng):
+        tdf = monthlydf.loc[monthlydf['id'] == i]
+        tdf = tdf.reset_index(drop=True)
+        d[i] = tdf
 
 
 ## Deals with termination of GO7 Devices and alters the billing days accordingly
