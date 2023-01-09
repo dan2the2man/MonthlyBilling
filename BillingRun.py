@@ -82,6 +82,8 @@ if mcheck == 1:
         
         # Write each company billing to a separate excel spreadsheet
         tempdf, tempfile = writeToCsv(d, lng, i)
+        x = sum(tempdf['Cost'])
+        st.write("Monthly total: " + x)
         CSV = convert_df(tempdf, tempfile)
         st.download_button(label=tempfile[:-4],
                                     data=CSV,
