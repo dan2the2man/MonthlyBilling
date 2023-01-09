@@ -82,7 +82,7 @@ if mcheck == 1:
         # Write each company billing to a separate excel spreadsheet
         tempdf, tempfile = writeToCsv(d, lng, i)
         CSV = convert_df(tempdf, tempfile)
-        zipObj.write(CSV)
+        zipObj.write("MonthlyBillBreakdown.zip", CSV)
         
 
 # close the Zip File
