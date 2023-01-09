@@ -10,6 +10,7 @@ import pandas as pd
 import os
 import math
 import streamlit as st
+import base64
 from zipfile import ZipFile
 import io
 
