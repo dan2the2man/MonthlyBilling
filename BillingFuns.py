@@ -26,7 +26,7 @@ def readData(string, x):
 
 def getFactorize(df):
     df = df.loc[:, ['Serial Number', 'Database','Customer', 'VIN', 
-                                'Bill Days', 'Quantity', 'Unit Cost', 'Cost']]
+                                'Bill Days', 'Quantity', 'Unit Cost', 'Cost', 'Billing Info']]
     
     ##if db is OH, then db = cust
     df.loc[df['Database'] == 'o_halloran', 'Database'] = df['Customer']
