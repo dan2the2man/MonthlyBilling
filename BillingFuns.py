@@ -95,7 +95,7 @@ def writeToCsv(d, lng, i):
     file += '.csv'
         
     df = d[idx]
-    df = df[['Serial Number', 'VIN', 'Bill Days', 'Quantity', 'Unit Cost', 'Cost']]
+    df = df[['Serial Number', 'VIN', 'Bill Days', 'Quantity', 'Unit Cost', 'Cost', 'Billing Info']]
     df.index = np.arange(1, len(df) + 1)
     return df, file
         
