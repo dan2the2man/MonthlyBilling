@@ -96,7 +96,7 @@ def writeToCsv(d, lng, i, sourcewell):
         
     df = d[idx]
     if sourcewell:
-        df = df[['Serial Number', 'VIN', 'Bill Days', 'Quantity', 'Unit Cost', 'Cost', 'Billing Info']]
+        df = df[['Serial Number', 'Billing Info']]
     else:
         df = df[['Serial Number', 'VIN', 'Bill Days', 'Quantity', 'Unit Cost', 'Cost']]
     df.index = np.arange(1, len(df) + 1)
