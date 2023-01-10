@@ -8,6 +8,16 @@ Created on Mon Jan  9 13:35:48 2023
 from BillingFuns import *
 
 mcheck = 0
+sw = False
+
+srcwell = st.radio(
+    "Monthly Billing or Sourcewell Quarterly?",
+    ('Billing', 'Sourcewell Quarterly Sales Report'))
+
+if srcwell == 'Sourcewell Quarterly Sales Report':
+    sw = True
+else:
+    sw = False
 
 uploaded_filem = st.file_uploader("Upload Monthly Billing CSV")
 if uploaded_filem is not None:
@@ -81,7 +91,8 @@ if mcheck == 1:
     for i in range(lng):
         
         # Write each company billing to a separate excel spreadsheet
-        tempdf, tempfile = writeToCsv(d, lng, i)
+        
+        tempdf, tempfile = writeToCsv(d, lng, i, sw)
         x = sum(tempdf['Cost'])
         sx = str(round(x, 2))
         dbname = tempfile[:-4]

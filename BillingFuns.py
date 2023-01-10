@@ -88,14 +88,17 @@ def setCost(df):
     return df
 
 
-def writeToCsv(d, lng, i):
+def writeToCsv(d, lng, i, sourcewell):
     
     idx = i
     file = d[idx]['Database'].iloc[0]
     file += '.csv'
         
     df = d[idx]
-    df = df[['Serial Number', 'VIN', 'Bill Days', 'Quantity', 'Unit Cost', 'Cost', 'Billing Info']]
+    if sourcewell:
+        df = df[['Serial Number', 'VIN', 'Bill Days', 'Quantity', 'Unit Cost', 'Cost', 'Billing Info']]
+    else:
+        df = df[['Serial Number', 'VIN', 'Bill Days', 'Quantity', 'Unit Cost', 'Cost']]
     df.index = np.arange(1, len(df) + 1)
     return df, file
         
