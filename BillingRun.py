@@ -93,11 +93,14 @@ if mcheck == 1:
         # Write each company billing to a separate excel spreadsheet
         
         tempdf, tempfile = writeToCsv(d, lng, i, sw)
-        x = sum(tempdf['Cost'])
-        sx = str(round(x, 2))
+        if not sw:
+            x = sum(tempdf['Cost'])
+            sx = str(round(x, 2))
         dbname = tempfile[:-4]
         
-        st.write(dbname + " Monthly total: " + sx)
+        if not sw:
+            st.write(dbname + " Monthly total: " + sx)
+        
         CSV = convert_df(tempdf, tempfile)
         st.download_button(label=dbname,
                                     data=CSV,
