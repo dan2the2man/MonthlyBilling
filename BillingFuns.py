@@ -137,7 +137,7 @@ def combineSourcewell(df1, df2, df3):
     
     df = pd.DataFrame()
     df['Serial Number'] = uniquelist
-    st.write(len(df))
+    #st.write(len(df))
     df['Plan Name'] = ''
     df['Billing Info'] = ''
     st.write('writing new columns')
@@ -153,8 +153,8 @@ def combineSourcewell(df1, df2, df3):
 
 def sourceone(df, df1):
     
-    for i in len(df):
-        for j in len(df1):
+    for i in range(len(df)):
+        for j in range(len(df1)):
             if df['Serial Number'][i] == df1['Serial Number'][j]:
                 df['Months Billed'][i] += 1
                 df['Plan Name'][i] = df1['Plan Name'][j]
@@ -166,8 +166,8 @@ def sourceone(df, df1):
 
 def sourcetwo(df, df2):
     
-    for i in len(df):
-        for j in len(df2):
+    for i in range(len(df)):
+        for j in range(len(df2)):
             if df['Serial Number'][i] == df2['Serial Number'][j]:
                 if df['Billing Info'][i] == df2['Billing Info'][j]:
                     df['Months Billed'][i] += 1
@@ -186,8 +186,8 @@ def sourcetwo(df, df2):
 
 def sourcethree(df, df3):
     
-    for i in len(df):
-        for j in len(df3):
+    for i in range(len(df)):
+        for j in range(len(df3)):
             if df['Serial Number'][i] == df3['Serial Number'][j]:
                 if df['Billing Info'][i] == df3['Billing Info'][j]:
                     df['Months Billed'][i] += 1
