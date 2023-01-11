@@ -140,7 +140,7 @@ def combineSourcewell(df1, df2, df3):
     #st.write(len(df))
     df['Plan Name'] = ''
     df['Billing Info'] = ''
-    st.write('writing new columns')
+    #st.write('writing new columns')
     df['Months Billed'] = 0
     
     df = sourceone(df, df1)
@@ -175,8 +175,7 @@ def sourcetwo(df, df2):
                     sn = df['Serial Number'][i]
                     pn = df2['Plan Name'][j]
                     bi = df2['Billing Info'][j]
-                    df['Plan Name'][i] = df2['Plan Name'][j]
-                    df['Billing Info'][i] = df2['Billing Info'][j]
+                    
                     
                     templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
                     df = df.append(templine, ignore_index = True)
