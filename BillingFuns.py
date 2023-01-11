@@ -99,6 +99,8 @@ def writeToCsv(d, lng, i, sourcewell):
         df = df[['Serial Number', 'Billing Info']]
         df['Billing Info'] = df['Billing Info'].str.split('[').str[1]
         df['Billing Info'] = df['Billing Info'].str[:-2]
+        df['Billing Info'] = df['Billing Info'].str[:2] + '.' + df['Billing Info'][2:]
+        
     else:
         df = df[['Serial Number', 'VIN', 'Bill Days', 'Quantity', 'Unit Cost', 'Cost']]
     df.index = np.arange(1, len(df) + 1)
