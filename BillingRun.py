@@ -154,6 +154,7 @@ else:
         grim2 = srcwl(lng2, monthlydf2)
         grim3 = srcwl(lng3, monthlydf3)
         
+        st.write('Getting Sent to combiner')
         grimtot = sourceWriteCsv(grim1, grim2, grim3)
         CSV = convert_df(grimtot)
         st.write('HAS BEEN CONVERTED TO CSV')

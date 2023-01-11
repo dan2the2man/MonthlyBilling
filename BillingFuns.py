@@ -139,6 +139,7 @@ def combineSourcewell(df1, df2, df3):
     df['Serial Number'] = uniquelist
     df['Plan Name'] = ''
     df['Billing Info'] = ''
+    st.write('writing new columns')
     df['Months Billed'] = 0
     
     df = sourceone(df, df1)
