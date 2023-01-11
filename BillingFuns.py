@@ -153,6 +153,7 @@ def combineSourcewell(df1, df2, df3):
     df['Billing Info'] = ''
     #st.write('writing new columns')
     df['Months Billed'] = 0
+    df['original'] = 1
     
     df = sourceone(df, df1)
     df = sourcetwo(df, df2)
@@ -170,6 +171,7 @@ def sourceone(df, df1):
                 df['Months Billed'][i] += 1
                 df['Plan Name'][i] = df1['Plan Name'][j]
                 df['Billing Info'][i] = df1['Billing Info'][j]
+                df['original'][i] = 1
     
     
     return df
@@ -181,16 +183,17 @@ def sourcetwo(df, df2):
         checker = 0
         for j in range(len(df2)):
             if checker == 0:
-                if df['Serial Number'][i] == df2['Serial Number'][j]:
+                if df['Serial Number'][i] == df2['Serial Number'][j] and df['original'][i] == 1:
                     if df['Billing Info'][i] == df2['Billing Info'][j]:
                         df['Months Billed'][i] += 1
                     else:
+                        df['original'][i] = 0
                         sn = df['Serial Number'][i]
                         pn = df2['Plan Name'][j]
                         bi = df2['Billing Info'][j]
                         
                         
-                        templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
+                        templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1, 'original': 1}
                         df = df.append(templine, ignore_index = True)
                         checker = 1
     
@@ -203,17 +206,18 @@ def sourcethree(df, df3):
         checker = 0
         for j in range(len(df3)):
             if checker == 0:
-                if df['Serial Number'][i] == df3['Serial Number'][j]:
+                if df['Serial Number'][i] == df3['Serial Number'][j] and df['original'][i] == 1:
                     if df['Billing Info'][i] == df3['Billing Info'][j]:
                         df['Months Billed'][i] += 1
                     else:
+                        df['original'][i] = 0
                         sn = df['Serial Number'][i]
                         pn = df3['Plan Name'][j]
                         bi = df3['Billing Info'][j]
                         df['Plan Name'][i] = df3['Plan Name'][j]
                         df['Billing Info'][i] = df3['Billing Info'][j]
                         
-                        templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
+                        templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1, 'original': 1}
                         df = df.append(templine, ignore_index = True)
                         checker = 1
     
