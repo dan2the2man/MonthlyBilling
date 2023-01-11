@@ -178,18 +178,21 @@ def sourceone(df, df1):
 def sourcetwo(df, df2):
     
     for i in range(len(df)):
+        checker = 0
         for j in range(len(df2)):
-            if df['Serial Number'][i] == df2['Serial Number'][j]:
-                if df['Billing Info'][i] == df2['Billing Info'][j]:
-                    df['Months Billed'][i] += 1
-                else:
-                    sn = df['Serial Number'][i]
-                    pn = df2['Plan Name'][j]
-                    bi = df2['Billing Info'][j]
-                    
-                    
-                    templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
-                    df = df.append(templine, ignore_index = True)
+            if checker == 0:
+                if df['Serial Number'][i] == df2['Serial Number'][j]:
+                    if df['Billing Info'][i] == df2['Billing Info'][j]:
+                        df['Months Billed'][i] += 1
+                    else:
+                        sn = df['Serial Number'][i]
+                        pn = df2['Plan Name'][j]
+                        bi = df2['Billing Info'][j]
+                        
+                        
+                        templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
+                        df = df.append(templine, ignore_index = True)
+                        checker = 1
     
     return df
 
@@ -197,19 +200,22 @@ def sourcetwo(df, df2):
 def sourcethree(df, df3):
     
     for i in range(len(df)):
+        checker = 0
         for j in range(len(df3)):
-            if df['Serial Number'][i] == df3['Serial Number'][j]:
-                if df['Billing Info'][i] == df3['Billing Info'][j]:
-                    df['Months Billed'][i] += 1
-                else:
-                    sn = df['Serial Number'][i]
-                    pn = df3['Plan Name'][j]
-                    bi = df3['Billing Info'][j]
-                    df['Plan Name'][i] = df3['Plan Name'][j]
-                    df['Billing Info'][i] = df3['Billing Info'][j]
-                    
-                    templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
-                    df = df.append(templine, ignore_index = True)
+            if checker == 0:
+                if df['Serial Number'][i] == df3['Serial Number'][j]:
+                    if df['Billing Info'][i] == df3['Billing Info'][j]:
+                        df['Months Billed'][i] += 1
+                    else:
+                        sn = df['Serial Number'][i]
+                        pn = df3['Plan Name'][j]
+                        bi = df3['Billing Info'][j]
+                        df['Plan Name'][i] = df3['Plan Name'][j]
+                        df['Billing Info'][i] = df3['Billing Info'][j]
+                        
+                        templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
+                        df = df.append(templine, ignore_index = True)
+                        checker = 1
     
     return df
 
