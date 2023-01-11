@@ -91,36 +91,46 @@ if mcheck == 1:
     for i in range(lng):
         
         # Write each company billing to a separate excel spreadsheet
+        compname = d[i]['Database'].iloc[0]
         
-        tempdf, tempfile = writeToCsv(d, lng, i, sw)
-        if not sw:
+        if sw:
+            if compname == 'cityofgrimes':
+                tempdf, tempfile = writeToCsv(d, lng, i, sw)
+                dbname = tempfile[:-4]
+                
+                CSV = convert_df(tempdf, tempfile)
+                st.download_button(label=dbname,
+                                            data=CSV,
+                                            file_name= tempfile)
+        else:
+            tempdf, tempfile = writeToCsv(d, lng, i, sw)
             x = sum(tempdf['Cost'])
             sx = str(round(x, 2))
-        dbname = tempfile[:-4]
-        
-        if not sw:
+            dbname = tempfile[:-4]
             st.write(dbname + " Monthly total: " + sx)
+            
+            CSV = convert_df(tempdf, tempfile)
+            st.download_button(label=dbname,
+                                        data=CSV,
+                                        file_name= tempfile)
+            
+        # if not sw:
+        #     x = sum(tempdf['Cost'])
+        #     sx = str(round(x, 2))
+        # dbname = tempfile[:-4]
         
-        CSV = convert_df(tempdf, tempfile)
-        st.download_button(label=dbname,
-                                    data=CSV,
-                                    file_name= tempfile)
+        # if not sw:
+        #     st.write(dbname + " Monthly total: " + sx)
         
-        #zipObj.write("MonthlyBillBreakdown.zip", CSV)
+        # CSV = convert_df(tempdf, tempfile)
+        # st.download_button(label=dbname,
+        #                             data=CSV,
+        #                             file_name= tempfile)
         
 
-    # close the Zip File
-    # zipObj.close()
+        
 
-    # ZipfileDotZip = "MonthlyBillBreakdown.zip"
 
-    # with open(ZipfileDotZip, "rb") as f:
-    #     bytes = f.read()
-    #     b64 = base64.b64encode(bytes).decode()
-    #     href = f"<a href=\"data:file/zip;base64,{b64}\" download='{ZipfileDotZip}.zip'>\
-    #         Click last model weights\
-    #         </a>"
-    # st.sidebar.markdown(href, unsafe_allow_html=True)
 
 
 
