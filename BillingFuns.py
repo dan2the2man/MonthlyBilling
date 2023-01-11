@@ -125,7 +125,18 @@ def sourceWriteCsv(df1, df2, df3):
     return df
 
 
+def removeMidMonthChanges(df):
+    
+    df.drop_duplicates(subset=['Serial Number'], keep='last', inplace=True, ignore_index=True)
+    return df
+
+
 def combineSourcewell(df1, df2, df3):
+    
+    df1 = removeMidMonthChanges(df1)
+    df2 = removeMidMonthChanges(df2)
+    df3 = removeMidMonthChanges(df3)
+
     
     df1SN = df1['Serial Number'].tolist()
     df2SN = df2['Serial Number'].tolist()
