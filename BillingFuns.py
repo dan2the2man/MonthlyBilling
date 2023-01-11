@@ -90,15 +90,114 @@ def setCost(df):
 
 def sourceWriteCsv(df1, df2, df3):
     
-    df = df1[['Serial Number', 'VIN', 'Billing Info']]
-    df = df.rename(columns={'VIN': 'Plan Name'})
-    df['Plan Name'] = df['Billing Info'].str.split('[').str[0]
-    df['Billing Info'] = df['Billing Info'].str.split('[').str[1]
-    df['Billing Info'] = df['Billing Info'].str[:-2]
+    df1 = df1[['Serial Number', 'VIN', 'Billing Info']]
+    df1 = df1.rename(columns={'VIN': 'Plan Name'})
+    df1['Plan Name'] = df1['Billing Info'].str.split('[').str[0]
+    df1['Billing Info'] = df1['Billing Info'].str.split('[').str[1]
+    df1['Billing Info'] = df1['Billing Info'].str[:-2]
     try:
-        df['Billing Info'] = df['Billing Info'].astype(float) / 100.
+        df1['Billing Info'] = df1['Billing Info'].astype(float) / 100.
     except ValueError:
-        print(df['Billing Info'])
+        print(df1['Billing Info'])
+        
+    df2 = df2[['Serial Number', 'VIN', 'Billing Info']]
+    df2 = df2.rename(columns={'VIN': 'Plan Name'})
+    df2['Plan Name'] = df2['Billing Info'].str.split('[').str[0]
+    df2['Billing Info'] = df2['Billing Info'].str.split('[').str[1]
+    df2['Billing Info'] = df2['Billing Info'].str[:-2]
+    try:
+        df2['Billing Info'] = df2['Billing Info'].astype(float) / 100.
+    except ValueError:
+        print(df2['Billing Info'])
+        
+    df3 = df3[['Serial Number', 'VIN', 'Billing Info']]
+    df3 = df3.rename(columns={'VIN': 'Plan Name'})
+    df3['Plan Name'] = df3['Billing Info'].str.split('[').str[0]
+    df3['Billing Info'] = df3['Billing Info'].str.split('[').str[1]
+    df3['Billing Info'] = df3['Billing Info'].str[:-2]
+    try:
+        df3['Billing Info'] = df3['Billing Info'].astype(float) / 100.
+    except ValueError:
+        print(df3['Billing Info'])
+    
+    df = combineSourcewell(df1, df2, df3)
+    
+    return df
+
+
+def combineSourcewell(df1, df2, df3):
+    
+    df1SN = df1['Serial Number'].tolist()
+    df2SN = df2['Serial Number'].tolist()
+    df3SN = df3['Serial Number'].tolist()
+    
+    allSNs = df1SN + df2SN + df3SN
+    uniqueSN = set(allSNs)
+    uniquelist = list(uniqueSN)
+    
+    df = pd.DataFrame()
+    df['Serial Number'] = uniquelist
+    df['Plan Name'] = ''
+    df['Billing Info'] = ''
+    df['Months Billed'] = 0
+    
+    df = sourceone(df, df1)
+    df = sourcetwo(df, df2)
+    df = sourcethree(df, df3)
+    
+    
+    return df
+
+
+def sourceone(df, df1):
+    
+    for i in len(df):
+        for j in len(df1):
+            if df['Serial Number'][i] == df1['Serial Number'][j]:
+                df['Months Billed'][i] += 1
+                df['Plan Name'][i] = df1['Plan Name'][j]
+                df['Billing Info'][i] = df1['Billing Info'][j]
+    
+    
+    return df
+
+
+def sourcetwo(df, df2):
+    
+    for i in len(df):
+        for j in len(df2):
+            if df['Serial Number'][i] == df2['Serial Number'][j]:
+                if df['Billing Info'][i] == df2['Billing Info'][j]:
+                    df['Months Billed'][i] += 1
+                else:
+                    sn = df['Serial Number'][i]
+                    pn = df2['Plan Name'][j]
+                    bi = df2['Billing Info'][j]
+                    df['Plan Name'][i] = df2['Plan Name'][j]
+                    df['Billing Info'][i] = df2['Billing Info'][j]
+                    
+                    templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
+                    df = df.append(templine, ignore_index = True)
+    
+    return df
+
+
+def sourcethree(df, df3):
+    
+    for i in len(df):
+        for j in len(df3):
+            if df['Serial Number'][i] == df3['Serial Number'][j]:
+                if df['Billing Info'][i] == df3['Billing Info'][j]:
+                    df['Months Billed'][i] += 1
+                else:
+                    sn = df['Serial Number'][i]
+                    pn = df3['Plan Name'][j]
+                    bi = df3['Billing Info'][j]
+                    df['Plan Name'][i] = df3['Plan Name'][j]
+                    df['Billing Info'][i] = df3['Billing Info'][j]
+                    
+                    templine = {'Serial Number': sn, 'Plan Name': pn, 'Billing Info': bi, 'Months Billed': 1}
+                    df = df.append(templine, ignore_index = True)
     
     return df
 
