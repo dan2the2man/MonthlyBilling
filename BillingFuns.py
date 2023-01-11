@@ -95,6 +95,10 @@ def sourceWriteCsv(df1, df2, df3):
     df['Plan Name'] = df['Billing Info'].str.split('[').str[0]
     df['Billing Info'] = df['Billing Info'].str.split('[').str[1]
     df['Billing Info'] = df['Billing Info'].str[:-2]
+    try:
+        df['Billing Info'] = df['Billing Info'].astype(float) / 100.
+    except ValueError:
+        print(df['Billing Info'])
     
     return df
 
