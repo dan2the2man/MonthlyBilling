@@ -97,7 +97,9 @@ def writeToCsv(d, lng, i, sourcewell):
     df = d[idx]
     if sourcewell:
         if file[:-4] == 'cityofgrimes':
-            df = df[['Serial Number', 'Billing Info']]
+            df = df[['Serial Number', 'VIN', 'Billing Info']]
+            df = df.rename(columns={'VIN': 'Plan Name'})
+            df['Plan Name'] = df['Billing Info'].str.split('[').str[0]
             df['Billing Info'] = df['Billing Info'].str.split('[').str[1]
             df['Billing Info'] = df['Billing Info'].str[:-2]
             try:
