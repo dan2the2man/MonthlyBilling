@@ -19,68 +19,70 @@ if srcwell == 'Sourcewell Quarterly Sales Report':
 else:
     sw = False
 
-uploaded_filem = st.file_uploader("Upload Monthly Billing CSV")
-if uploaded_filem is not None:
-    mcheck = 1
-    #read xls or xlsx
-    monthlydf=pd.read_csv(uploaded_filem, skiprows=3)
-    monthlydf = getFactorize(monthlydf)
-    
-else:
-    st.warning("Monthly Bill From Geotab")
-
-
-
-### Enter Year, and Month name
-year = 0
-month = ''
-
-yearcheck = 0
-moncheck = 'nono'
-while yearcheck == 0:
-    year = st.text_input('Year', '2023')
-    #year = input("Please type the year we are billing: ")
-    try:
-        year = int(year)
-        yearcheck = getYear(year)
-    except ValueError:
-        print("Please enter a number.\n")
-
+if not sw:
+    uploaded_filem = st.file_uploader("Upload Monthly Billing CSV")
+    if uploaded_filem is not None:
+        mcheck = 1
+        #read xls or xlsx
+        monthlydf=pd.read_csv(uploaded_filem, skiprows=3)
+        monthlydf = getFactorize(monthlydf)
         
-while moncheck == 'nono':
-    month = st.text_input('Month (The one it currently is - this will affect bill days)', 'February')
-    #month = input("Please type the month we are billing: ")
-    moncheck = getMonth(month)
+    else:
+        st.warning("Monthly Bill From Geotab")
+
+
+
+
+    ### Enter Year, and Month name
+    year = 0
+    month = ''
     
-month = moncheck
-year = yearcheck
+    yearcheck = 0
+    moncheck = 'nono'
+    while yearcheck == 0:
+        year = st.text_input('Year', '2023')
+        #year = input("Please type the year we are billing: ")
+        try:
+            year = int(year)
+            yearcheck = getYear(year)
+        except ValueError:
+            print("Please enter a number.\n")
+    
+            
+    while moncheck == 'nono':
+        month = st.text_input('Month (The one it currently is - this will affect bill days)', 'February')
+        #month = input("Please type the month we are billing: ")
+        moncheck = getMonth(month)
+        
+    month = moncheck
+    year = yearcheck
 
 # ---------------------------------------------------------------------------
 
 
-if mcheck == 1:
-    # Set our unit prices
-    monthlydf = editProductPrice(monthlydf)
+    if mcheck == 1:
+        # Set our unit prices
+        monthlydf = editProductPrice(monthlydf)
+        
+        
+        ## Edit cost
+        monthlydf = setCost(monthlydf)
+        
+        
+        ## Get the number of companies to bill this month
+        lng = len(monthlydf['Database'].unique())
+        
+        
+        ## Create Database for each company (These will turn into excel spreadsheets)
+        d = {}
+        for i in range(lng):
+            tdf = monthlydf.loc[monthlydf['id'] == i]
+            tdf = tdf.reset_index(drop=True)
+            d[i] = tdf
     
     
-    ## Edit cost
-    monthlydf = setCost(monthlydf)
-    
-    
-    ## Get the number of companies to bill this month
-    lng = len(monthlydf['Database'].unique())
-    
-    
-    ## Create Database for each company (These will turn into excel spreadsheets)
-    d = {}
-    for i in range(lng):
-        tdf = monthlydf.loc[monthlydf['id'] == i]
-        tdf = tdf.reset_index(drop=True)
-        d[i] = tdf
-
-
-    ## Deals with termination of GO7 Devices and alters the billing days accordingly
-    d = setQuantity(d, month, year)
+        ## Deals with termination of GO7 Devices and alters the billing days accordingly
+        d = setQuantity(d, month, year)
 
     
     #zipObj = zipfile.ZipFile("MonthlyBillBreakdown.zip", "w")
@@ -93,40 +95,63 @@ if mcheck == 1:
         # Write each company billing to a separate excel spreadsheet
         compname = d[i]['Database'].iloc[0]
         
-        if sw:
-            if compname == 'cityofgrimes':
-                tempdf, tempfile = writeToCsv(d, lng, i, sw)
-                dbname = tempfile[:-4]
+        # if sw:
+        #     if compname == 'cityofgrimes':
+        #         tempdf, tempfile = writeToCsv(d, lng, i, sw)
+        #         dbname = tempfile[:-4]
                 
-                CSV = convert_df(tempdf, tempfile)
-                st.download_button(label=dbname,
-                                            data=CSV,
-                                            file_name= tempfile)
-        else:
-            tempdf, tempfile = writeToCsv(d, lng, i, sw)
-            x = sum(tempdf['Cost'])
-            sx = str(round(x, 2))
-            dbname = tempfile[:-4]
-            st.write(dbname + " Monthly total: " + sx)
+        #         CSV = convert_df(tempdf, tempfile)
+        #         st.download_button(label=dbname,
+        #                                     data=CSV,
+        #                                     file_name= tempfile)
+        
+        tempdf, tempfile = writeToCsv(d, lng, i, sw)
+        x = sum(tempdf['Cost'])
+        sx = str(round(x, 2))
+        dbname = tempfile[:-4]
+        st.write(dbname + " Monthly total: " + sx)
             
-            CSV = convert_df(tempdf, tempfile)
-            st.download_button(label=dbname,
-                                        data=CSV,
-                                        file_name= tempfile)
-            
-        # if not sw:
-        #     x = sum(tempdf['Cost'])
-        #     sx = str(round(x, 2))
-        # dbname = tempfile[:-4]
+        CSV = convert_df(tempdf, tempfile)
+        st.download_button(label=dbname,
+                           data=CSV,
+                           file_name= tempfile)
+ 
+           
+else:
+    uploaded_file1 = st.file_uploader("Upload 1st Monthly Billing CSV")
+    if uploaded_file1 is not None:
+        #read xls or xlsx
+        monthlydf1=pd.read_csv(uploaded_file1, skiprows=3)
+        monthlydf1 = getFactorize(monthlydf1)
+    else:
+        st.warning("Monthly Bill From Geotab")
         
-        # if not sw:
-        #     st.write(dbname + " Monthly total: " + sx)
+    uploaded_file2 = st.file_uploader("Upload 2nd Monthly Billing CSV")
+    if uploaded_file2 is not None:
+        #read xls or xlsx
+        monthlydf2 = pd.read_csv(uploaded_file2, skiprows=3)
+        monthlydf2 = getFactorize(monthlydf2)
+    else:
+        st.warning("Monthly Bill From Geotab")
         
-        # CSV = convert_df(tempdf, tempfile)
-        # st.download_button(label=dbname,
-        #                             data=CSV,
-        #                             file_name= tempfile)
+    uploaded_file3 = st.file_uploader("Upload 3rd Monthly Billing CSV")
+    if uploaded_file3 is not None and uploaded_file2 is not None and uploaded_file1 is not None:
+        mcheck = 2
+        #read xls or xlsx
+        monthlydf3 = pd.read_csv(uploaded_file3, skiprows=3)
+        monthlydf3 = getFactorize(monthlydf3)
+    else:
+        st.warning("Monthly Bill From Geotab")
         
+    if mcheck == 2:
+
+        ## Get the number of companies to bill this month
+        # lng1 = len(monthlydf1['Database'].unique())
+        # lng2 = len(monthlydf2['Database'].unique())
+        # lng3 = len(monthlydf3['Database'].unique())
+        
+        compname1 = monthlydf1['Database'].iloc[0]
+        st.write('this is the compname: ' + compname1)
 
         
 
