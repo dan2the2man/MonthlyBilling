@@ -156,9 +156,10 @@ else:
         
         grimtot = sourceWriteCsv(grim1, grim2, grim3)
         CSV = convert_df(grimtot)
+        st.write('HAS BEEN CONVERTED TO CSV')
         st.download_button(label='Grimes Sourcewell Download',
                            data=CSV,
-                           file_name='GeotabSourcewellQuarterlyFiling')
+                           file_name='GeotabSourcewellQuarterlyFiling.csv')
 
         # for i in range(lng1):
             
