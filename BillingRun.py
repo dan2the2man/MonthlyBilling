@@ -90,31 +90,31 @@ if not sw:
 
 
 
-    for i in range(lng):
-        
-        # Write each company billing to a separate excel spreadsheet
-        compname = d[i]['Database'].iloc[0]
-        
-        # if sw:
-        #     if compname == 'cityofgrimes':
-        #         tempdf, tempfile = writeToCsv(d, lng, i, sw)
-        #         dbname = tempfile[:-4]
-                
-        #         CSV = convert_df(tempdf, tempfile)
-        #         st.download_button(label=dbname,
-        #                                     data=CSV,
-        #                                     file_name= tempfile)
-        
-        tempdf, tempfile = writeToCsv(d, lng, i, sw)
-        x = sum(tempdf['Cost'])
-        sx = str(round(x, 2))
-        dbname = tempfile[:-4]
-        st.write(dbname + " Monthly total: " + sx)
+        for i in range(lng):
             
-        CSV = convert_df(tempdf, tempfile)
-        st.download_button(label=dbname,
-                           data=CSV,
-                           file_name= tempfile)
+            # Write each company billing to a separate excel spreadsheet
+            compname = d[i]['Database'].iloc[0]
+            
+            # if sw:
+            #     if compname == 'cityofgrimes':
+            #         tempdf, tempfile = writeToCsv(d, lng, i, sw)
+            #         dbname = tempfile[:-4]
+                    
+            #         CSV = convert_df(tempdf, tempfile)
+            #         st.download_button(label=dbname,
+            #                                     data=CSV,
+            #                                     file_name= tempfile)
+            
+            tempdf, tempfile = writeToCsv(d, lng, i, sw)
+            x = sum(tempdf['Cost'])
+            sx = str(round(x, 2))
+            dbname = tempfile[:-4]
+            st.write(dbname + " Monthly total: " + sx)
+                
+            CSV = convert_df(tempdf, tempfile)
+            st.download_button(label=dbname,
+                               data=CSV,
+                               file_name= tempfile)
  
            
 else:
