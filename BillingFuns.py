@@ -137,6 +137,7 @@ def combineSourcewell(df1, df2, df3):
     
     df = pd.DataFrame()
     df['Serial Number'] = uniquelist
+    st.write(len(df))
     df['Plan Name'] = ''
     df['Billing Info'] = ''
     st.write('writing new columns')
