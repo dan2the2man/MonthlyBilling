@@ -88,6 +88,17 @@ def setCost(df):
     return df
 
 
+def sourceWriteCsv(df1, df2, df3):
+    
+    df = df1[['Serial Number', 'VIN', 'Billing Info']]
+    df = df.rename(columns={'VIN': 'Plan Name'})
+    df['Plan Name'] = df['Billing Info'].str.split('[').str[0]
+    df['Billing Info'] = df['Billing Info'].str.split('[').str[1]
+    df['Billing Info'] = df['Billing Info'].str[:-2]
+    
+    return df
+
+
 def writeToCsv(d, lng, i, sourcewell):
     
     idx = i
@@ -116,7 +127,7 @@ def writeToCsv(d, lng, i, sourcewell):
     
     
 @st.cache
-def convert_df(df, f):
+def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     
     return df.to_csv().encode("utf-8")
@@ -191,3 +202,23 @@ def getMonth(m):
     else:
         m = 'nono'
     return m
+
+
+def srcwl(l, df):
+    
+    for i in range(l):
+        tdf = df.loc[df['id'] == i]
+        tdf = tdf.reset_index(drop=True)
+        compname = tdf['Database'].iloc[0]
+        
+        if compname == 'cityofgrimes':
+            return tdf
+    return ''
+        
+    
+    
+    
+    
+    
+    
+    

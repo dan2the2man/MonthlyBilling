@@ -111,12 +111,13 @@ if not sw:
             dbname = tempfile[:-4]
             st.write(dbname + " Monthly total: " + sx)
                 
-            CSV = convert_df(tempdf, tempfile)
+            CSV = convert_df(tempdf)
             st.download_button(label=dbname,
                                data=CSV,
                                file_name= tempfile)
  
-           
+       
+## This is the case for sourcewell
 else:
     uploaded_file1 = st.file_uploader("Upload 1st Monthly Billing CSV")
     if uploaded_file1 is not None:
@@ -145,13 +146,47 @@ else:
         
     if mcheck == 2:
 
-        ## Get the number of companies to bill this month
-        # lng1 = len(monthlydf1['Database'].unique())
-        # lng2 = len(monthlydf2['Database'].unique())
-        # lng3 = len(monthlydf3['Database'].unique())
+        lng1 = len(monthlydf1['Database'].unique())
+        lng2 = len(monthlydf2['Database'].unique())
+        lng3 = len(monthlydf3['Database'].unique())
         
-        compname1 = monthlydf1['Database'].iloc[0]
-        st.write('this is the compname: ' + compname1)
+        grim1 = srcwl(lng1, monthlydf1)
+        grim2 = srcwl(lng2, monthlydf2)
+        grim3 = srcwl(lng3, monthlydf3)
+        
+        grimtot = sourceWriteCsv(grim1, grim2, grim3)
+        CSV = convert_df(grimtot)
+        st.download_button(label='Grimes Sourcewell Download',
+                           data=CSV,
+                           file_name='GeotabSourcewellQuarterlyFiling')
+
+        # for i in range(lng1):
+            
+        #     # Write each company billing to a separate excel spreadsheet
+        #     compname = d[i]['Database'].iloc[0]
+            
+        #     if compname == 'cityofgrimes':
+        #         tempdf, tempfile = writeToCsv(d, lng, i, sw)
+        #         dbname = tempfile[:-4]
+                
+        #         CSV = convert_df(tempdf)
+        #         st.download_button(label=dbname,
+        #                            data=CSV,
+        #                            file_name= tempfile)
+            
+        #     tempdf, tempfile = writeToCsv(d, lng, i, sw)
+        #     x = sum(tempdf['Cost'])
+        #     sx = str(round(x, 2))
+        #     dbname = tempfile[:-4]
+        #     st.write(dbname + " Monthly total: " + sx)
+                
+        #     CSV = convert_df(tempdf, tempfile)
+        #     st.download_button(label=dbname,
+        #                        data=CSV,
+        #                        file_name= tempfile)
+        
+        # compname1 = monthlydf1['Database'].iloc[0]
+        # st.write('this is the compname: ' + compname1)
 
         
 
