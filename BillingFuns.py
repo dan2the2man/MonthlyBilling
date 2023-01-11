@@ -121,8 +121,9 @@ def sourceWriteCsv(df1, df2, df3):
         print(df3['Billing Info'])
     
     df = combineSourcewell(df1, df2, df3)
+    fdf = df[['Serial Number', 'Plan Name', 'Billing Info', 'Months Billed']]
     
-    return df
+    return fdf
 
 
 def removeMidMonthChanges(df):
