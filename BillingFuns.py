@@ -39,7 +39,8 @@ def getFactorize(df):
     df.loc[df['Database'] == 't_b', 'Database'] = 'Ted Parker'
     
     df = df[df['Database'].notna()]
-    df['id'] = df['Database'].factorize()[0]
+    df['id'] = df['Database'].factorize(sort=True)[0]
+    
     df['check'] = 0
     return df
 
