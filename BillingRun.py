@@ -117,7 +117,7 @@ if not sw:
             x = sum(tempdf['Cost'])
             sx = str(round(x, 2))
             dbname = tempfile[:-4]
-            st.write(dbname + " Monthly total: $" + sx)
+            st.write(dbname + " monthly total: $" + sx)
                 
             CSV = convert_df(tempdf)
             st.download_button(label=dbname,
