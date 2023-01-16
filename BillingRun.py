@@ -123,6 +123,8 @@ if not sw:
             st.download_button(label=dbname,
                                data=CSV,
                                file_name= tempfile)
+            
+            st.write('---------------------------------------------------------')
  
        
 ## This is the case for sourcewell
