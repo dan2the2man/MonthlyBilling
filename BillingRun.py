@@ -8,16 +8,24 @@ Created on Mon Jan  9 13:35:48 2023
 from BillingFuns import *
 
 mcheck = 0
+internalcheck = 0
 sw = False
 
 srcwell = st.radio(
     "Monthly Billing or Sourcewell Quarterly?",
-    ('Billing', 'Sourcewell Quarterly Sales Report'))
+    ('Billing', 'Internal Billing', 'Sourcewell Quarterly Sales Report'))
 
 if srcwell == 'Sourcewell Quarterly Sales Report':
+    internalcheck = 0
     sw = True
 else:
+    internalcheck = 0
     sw = False
+    
+if srcwell == 'Internal Billing':
+    sw = False
+    internalcheck = 1
+    
 
 if not sw:
     uploaded_filem = st.file_uploader("Upload Monthly Billing CSV")
@@ -62,7 +70,7 @@ if not sw:
 
     if mcheck == 1:
         # Set our unit prices
-        monthlydf = editProductPrice(monthlydf)
+        monthlydf = editProductPrice(monthlydf, internalcheck)
         
         
         ## Edit cost
