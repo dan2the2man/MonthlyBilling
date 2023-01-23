@@ -166,6 +166,7 @@ else:
         
         st.write('Getting Sent to combiner')
         grimtot = sourceWriteCsv(grim1, grim2, grim3)
+        grimtot['Billing Info'] = 32
         CSV = convert_df(grimtot)
         st.write('HAS BEEN CONVERTED TO CSV')
         st.download_button(label='Grimes Sourcewell Download',
