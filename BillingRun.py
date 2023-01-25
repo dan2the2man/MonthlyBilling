@@ -89,13 +89,13 @@ if not sw:
             compname = tdf['Database'].iloc[0]
             
             if compname == 'cityofgrimes':
-                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 14.12, 18.87, df['Unit Cost'])
-                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 15.4, 20.15, df['Unit Cost'])
-                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 22.85, 30.60, df['Unit Cost'])
+                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 14.12, 18.87, tdf['Unit Cost'])
+                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 15.4, 20.15, tdf['Unit Cost'])
+                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 22.85, 30.60, tdf['Unit Cost'])
             else:
-                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 14.12, 32, df['Unit Cost'])
-                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 15.4, 32, df['Unit Cost'])
-                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 22.85, 32, df['Unit Cost'])
+                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 14.12, 32, tdf['Unit Cost'])
+                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 15.4, 32, tdf['Unit Cost'])
+                tdf['Unit Cost'] = np.where(tdf['Unit Cost'] == 22.85, 32, tdf['Unit Cost'])
             
             d[i] = tdf
     
