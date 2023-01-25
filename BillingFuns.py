@@ -51,12 +51,13 @@ def editProductPrice(df, ic):
         df['Unit Cost'] = np.where(df['Unit Cost'] == 14, 25, df['Unit Cost'])
         df['Unit Cost'] = np.where(df['Unit Cost'] == 16, 27, df['Unit Cost'])
         df['Unit Cost'] = np.where(df['Unit Cost'] == 18, 27, df['Unit Cost'])
-        df['Unit Cost'] = np.where(df['Unit Cost'] == 14.12, 32, df['Unit Cost'])
-        df['Unit Cost'] = np.where(df['Unit Cost'] == 15.4, 32, df['Unit Cost'])
+        
+        #df['Unit Cost'] = np.where(df['Unit Cost'] == 14.12, 32, df['Unit Cost'])
+        #df['Unit Cost'] = np.where(df['Unit Cost'] == 15.4, 32, df['Unit Cost'])
         df['Unit Cost'] = np.where(df['Unit Cost'] == 6, 15, df['Unit Cost'])
         df['Unit Cost'] = np.where(df['Unit Cost'] == 7, 15, df['Unit Cost'])
         df['Unit Cost'] = np.where(df['Unit Cost'] == 9, 20, df['Unit Cost'])
-        df['Unit Cost'] = np.where(df['Unit Cost'] == 22.85, 32, df['Unit Cost'])
+        #df['Unit Cost'] = np.where(df['Unit Cost'] == 22.85, 32, df['Unit Cost'])
         df['Unit Cost'] = np.where(df['Unit Cost'] == 13, 20, df['Unit Cost'])
         df['Unit Cost'] = np.where(df['Unit Cost'] == 5, 7, df['Unit Cost'])
     
