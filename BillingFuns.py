@@ -123,6 +123,18 @@ def sourceWriteCsv(df1, df2, df3):
     except ValueError:
         print(df3['Billing Info'])
     
+    df1['Billing Info'] = np.where(df1['Billing Info'] == 14.12, 18.87, df1['Billing Info'])
+    df1['Billing Info'] = np.where(df1['Billing Info'] == 15.4, 20.15, df1['Billing Info'])
+    df1['Billing Info'] = np.where(df1['Billing Info'] == 22.85, 30.60, df1['Billing Info'])
+    
+    df2['Billing Info'] = np.where(df2['Billing Info'] == 14.12, 18.87, df2['Billing Info'])
+    df2['Billing Info'] = np.where(df2['Billing Info'] == 15.4, 20.15, df2['Billing Info'])
+    df2['Billing Info'] = np.where(df2['Billing Info'] == 22.85, 30.60, df2['Billing Info'])
+    
+    df3['Billing Info'] = np.where(df3['Billing Info'] == 14.12, 18.87, df3['Billing Info'])
+    df3['Billing Info'] = np.where(df3['Billing Info'] == 15.4, 20.15, df3['Billing Info'])
+    df3['Billing Info'] = np.where(df3['Billing Info'] == 22.85, 30.60, df3['Billing Info'])
+    
     df = combineSourcewell(df1, df2, df3)
     fdf = df[['Serial Number', 'Plan Name', 'Billing Info', 'Months Billed']]
     
