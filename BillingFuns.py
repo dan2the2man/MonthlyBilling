@@ -67,18 +67,18 @@ def editProductPrice(df, ic):
 def setQuantity(d, m, y):
     days = getPrevMonDays(m, y)
     for i in range(len(d)):
-        for x in range(len(d[i])):
-            if d[i]['Serial Number'][x][:2] == 'G7' and d[i]['check'][x] == 0 and d[i]['Bill Days'][x] < days:
-                z = 0
-                while z < 1:
-                    for y in range(len(d[i])):
-                        if d[i]['Serial Number'][y][:2] == 'G9' and d[i]['check'][y] == 0 and d[i]['Bill Days'][y] == days:
-                            z = 1
-                            d[i].at[y, 'Bill Days'] = days - d[i]['Bill Days'][x]
-                            d[i].at[y, 'check'] = 1
-                            d[i].at[x, 'check'] = 1
-                            break
-                    z = 1
+        # for x in range(len(d[i])):
+        #     if d[i]['Serial Number'][x][:2] == 'G7' and d[i]['check'][x] == 0 and d[i]['Bill Days'][x] < days:
+        #         z = 0
+        #         while z < 1:
+        #             for y in range(len(d[i])):
+        #                 if d[i]['Serial Number'][y][:2] == 'G9' and d[i]['check'][y] == 0 and d[i]['Bill Days'][y] == days:
+        #                     z = 1
+        #                     d[i].at[y, 'Bill Days'] = days - d[i]['Bill Days'][x]
+        #                     d[i].at[y, 'check'] = 1
+        #                     d[i].at[x, 'check'] = 1
+        #                     break
+        #             z = 1
         d[i]['Quantity'] = d[i]['Bill Days'] / days
         d[i] = setCost(d[i])
     
